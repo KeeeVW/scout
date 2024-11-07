@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الوحدات العسكرية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+        }
+        .item {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            display: inline-block;
+            width: 300px;
+        }
+        .coins {
+            font-size: 1.5em;
+            color: #28a745;
+        }
+        .buy-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .buy-button:disabled {
+            background-color: #ccc;
+        }
+        .item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        #purchased-items {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>متجر الوحدات العسكرية</h1>
+    <p class="coins">رصيدك الحالي: <span id="balance">1000000</span> كوين</p>
+
+    <div class="item">
+        <h3>وحدة مشاة</h3>
+        <img src="https://drive.google.com/uc?id=1RnSmVjXnCG2wfRpCPPnbvFixd832GR3X" alt="وحدة مشاة">
+        <p>السعر: 50,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('وحدة مشاة', 50000)">شراء</button>
+    </div>
+    
+    <div class="item">
+        <h3>دبابة</h3>
+        <img src="https://drive.google.com/uc?id=1ZssBqkyD8ffg9Pa73zuYRPbCL_XeGgbA" alt="دبابة">
+        <p>السعر: 150,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('دبابة', 150000)">شراء</button>
+    </div>
+
+    <div class="item">
+        <h3>طائرة مقاتلة</h3>
+        <img src="https://drive.google.com/file/d/1ZssBqkyD8ffg9Pa73zuYRPbCL_XeGgbA/view" alt="طائرة مقاتلة">
+        <p>السعر: 250,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('طائرة مقاتلة', 250000)">شراء</button>
+    </div>
+
+    <div class="item">
+        <h3>سفينة حربية</h3>
+        <img src="images/warship.png" alt="سفينة حربية">
+        <p>السعر: 300,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('سفينة حربية', 300000)">شراء</button>
+    </div>
+
+    <div class="item">
+        <h3>صاروخ</h3>
+        <img src="https://drive.google.com/uc?id=1EKJ9DTlQXjvEN1Dww7ZdDgsuGmLiAV8F" alt="صاروخ">
+        <p>السعر: 200,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('قاذفة صواريخ', 200000)">شراء</button>
+    </div>
+
+    <div class="item">
+        <h3>غواصة</h3>
+        <img src="https://drive.google.com/uc?id=1MbxOiHxfK5kkG6k61Qh0YLWL7YO8npmT" alt="غواصة">
+        <p>السعر: 350,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('غواصة', 350000)">شراء</button>
+    </div>
+
+    <div class="item">
+        <h3>طائرة بدون طيار</h3>
+        <img src="https://drive.google.com/uc?id=1mX8nuy1wd7ul2Mz2yiHtIriG8XSIIix1" alt="طائرة بدون طيار">
+        <p>السعر: 80,000 كوين</p>
+        <button class="buy-button" onclick="buyItem('طائرة بدون طيار', 80000)">شراء</button>
+    </div>
+
+    <div id="purchased-items">
+        <h2>العناصر التي تم شراؤها</h2>
+        <ul id="purchase-list"></ul>
+    </div>
+
+    <script>
+        let balance = 1000000;
+        const purchases = {};
+
+        function buyItem(itemName, price) {
+            if (balance >= price) {
+                balance -= price;
+                document.getElementById("balance").textContent = balance;
+
+                // تحديث قائمة المشتريات
+                if (purchases[itemName]) {
+                    purchases[itemName]++;
+                } else {
+                    purchases[itemName] = 1;
+                }
+
+                updatePurchaseList();
+                alert("تم الشراء بنجاح!");
+            } else {
+                alert("عذراً، ليس لديك ما يكفي من الكوين.");
+            }
+        }
+
+        function updatePurchaseList() {
+            const purchaseList = document.getElementById("purchase-list");
+            purchaseList.innerHTML = ""; // مسح القائمة القديمة
+
+            for (let item in purchases) {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${item}: ${purchases[item]} وحدات`;
+                purchaseList.appendChild(listItem);
+            }
+        }
+    </script>
+</body>
+</html>
